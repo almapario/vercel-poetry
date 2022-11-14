@@ -22,8 +22,9 @@ async function downloadFilesInWorkPath({
     entrypoint,
     workPath,
     files,
-    meta = {},
+    meta: vMeta,
 }) {
+    const meta = { ...vMeta, isDev: vMeta?.isDev || false };
     debug("Downloading user files...");
     let downloadedFiles = await download(files, workPath, meta);
     if (meta.isDev) {
