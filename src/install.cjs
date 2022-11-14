@@ -50,6 +50,7 @@ async function installRequirement({
         );
         return;
     }
+    console.log("Installing required dependencies...");
     const exact = version ? `${dependency}==${version}` : dependency;
     await poetryInstall(pipPath, workPath, ["install", exact, ...args]);
 }

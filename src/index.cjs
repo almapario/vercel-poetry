@@ -13,7 +13,7 @@ const PYTHON_CONFIG = {
     pipPath: "pip3",
     poetryPath: "poetry",
     pythonPath: "python3",
-    runtime: "vercel-poetry",
+    runtime: "python3.9",
 };
 
 // vercel manifest version
@@ -50,7 +50,6 @@ const build = async ({
         entrypoint,
         meta,
     });
-    console.log("Installing required dependencies...");
     await installRequirement({
         pythonPath: PYTHON_CONFIG.pythonPath,
         pipPath: PYTHON_CONFIG.pipPath,
@@ -58,13 +57,11 @@ const build = async ({
         workPath,
         meta: { isDev: meta?.isDev || false },
     });
-    let fsFiles = await glob("**", workPath);
-    const entryDirectory = dirname(entrypoint);
-    const projectDir = fsFiles[join(entryDirectory, "pyproject.toml")];
-
-    if (projectDir) {
-        await poetryInstall(PYTHON_CONFIG.poetryPath, projectDir, ["install"]);
-    }
+    console.log("Installing poetry dependencies...");
+    await poetryInstall(PYTHON_CONFIG.poetryPath, dirname(entrypoint), [
+        "install",
+    ]);
+    console.log("Completed poetry dependencies installation.");
 
     const globOptions = {
         cwd: workPath,
