@@ -1,6 +1,6 @@
 {
     "name": "@almapario/vercel-poetry",
-    "version": "0.0.3",
+    "version": "0.0.3.alpha.1",
     "main": "./src/index.cjs",
     "license": "MIT",
     "homepage": "https://dev.almapario.com/vercel-poetry",
