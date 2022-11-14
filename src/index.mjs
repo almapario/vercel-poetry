@@ -6,7 +6,7 @@ import {
     shouldServe,
     debug,
 } from "@vercel/build-utils";
-import { installRequirement, poetryInstall } from "./install";
+import { installRequirement, poetryInstall } from "./install.mjs";
 
 const PYTHON_CONFIG = {
     version: "3",
