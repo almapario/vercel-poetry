@@ -5,6 +5,7 @@
     "license": "MIT",
     "homepage": "https://dev.almapario.com/vercel-poetry",
     "files": ["src"],
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "https://github.com/almapario/vercel-poetry.git",
