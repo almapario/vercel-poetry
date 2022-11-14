@@ -37,11 +37,12 @@ async function poetryInstall(poetryPath, workPath, cmdArgs = []) {
 }
 async function installRequirement({
     pythonPath,
-    poetryPath,
+    pipPath,
     dependency,
     version,
     workPath,
     args = [],
+    meta,
 }) {
     if (meta.isDev && (await isInstalled(pythonPath, dependency, workPath))) {
         debug(
@@ -50,7 +51,7 @@ async function installRequirement({
         return;
     }
     const exact = version ? `${dependency}==${version}` : dependency;
-    await poetryInstall(poetryPath, workPath, ["add", exact, ...args]);
+    await poetryInstall(pipPath, workPath, ["install", exact, ...args]);
 }
 
 module.exports = { poetryInstall, installRequirement };

@@ -10,6 +10,7 @@ const { installRequirement, poetryInstall } = require("./install.cjs");
 
 const PYTHON_CONFIG = {
     version: "3",
+    pipPath: "pip3",
     poetryPath: "poetry",
     pythonPath: "python3",
     runtime: "python3",
@@ -52,10 +53,10 @@ const build = async ({
     console.log("Installing required dependencies...");
     await installRequirement({
         pythonPath: PYTHON_CONFIG.pythonPath,
-        poetryPath: PYTHON_CONFIG.poetryPath,
+        pipPath: PYTHON_CONFIG.pipPath,
         dependency: "poetry",
         workPath,
-        meta,
+        meta: { isDev: meta?.isDev || false },
     });
     let fsFiles = await glob("**", workPath);
     const entryDirectory = dirname(entrypoint);
