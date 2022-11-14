@@ -13,7 +13,7 @@ const PYTHON_CONFIG = {
     pipPath: "pip3",
     poetryPath: "poetry",
     pythonPath: "python3",
-    runtime: "python3",
+    runtime: "vercel-poetry",
 };
 
 // vercel manifest version
