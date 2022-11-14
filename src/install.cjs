@@ -1,5 +1,5 @@
-import execa from "execa";
-import { debug } from "@vercel/build-utils";
+const execa = require("execa");
+const { debug } = require("@vercel/build-utils");
 
 const makeDependencyCheckCode = (dependency) => `
 from importlib import util
@@ -23,7 +23,7 @@ async function isInstalled(pythonPath, dependency, cwd) {
     }
 }
 
-export async function poetryInstall(poetryPath, workPath, cmdArgs = []) {
+async function poetryInstall(poetryPath, workPath, cmdArgs = []) {
     const pretty = `${poetryPath} ${cmdArgs.join(" ")}`;
     debug(`Running "${pretty}"...`);
     try {
@@ -35,7 +35,7 @@ export async function poetryInstall(poetryPath, workPath, cmdArgs = []) {
         throw err;
     }
 }
-export async function installRequirement({
+async function installRequirement({
     pythonPath,
     poetryPath,
     dependency,
@@ -52,3 +52,5 @@ export async function installRequirement({
     const exact = version ? `${dependency}==${version}` : dependency;
     await poetryInstall(poetryPath, workPath, ["add", exact, ...args]);
 }
+
+module.exports = { poetryInstall, installRequirement };

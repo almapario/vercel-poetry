@@ -1,6 +1,12 @@
-import { join, dirname, basename } from "path";
-import vpkg from "@vercel/build-utils";
-import { installRequirement, poetryInstall } from "./install.mjs";
+const { join, dirname, basename } = require("path");
+const {
+    download,
+    glob,
+    shouldServe,
+    debug,
+    Lambda,
+} = require("@vercel/build-utils");
+const { installRequirement, poetryInstall } = require("./install.cjs");
 
 const PYTHON_CONFIG = {
     version: "3",
@@ -9,12 +15,10 @@ const PYTHON_CONFIG = {
     runtime: "python3",
 };
 
-const { download, glob, shouldServe, debug, Lambda } = vpkg;
-
 // vercel manifest version
-export const version = 3;
+const version = 3;
 
-export async function downloadFilesInWorkPath({
+async function downloadFilesInWorkPath({
     entrypoint,
     workPath,
     files,
@@ -31,7 +35,7 @@ export async function downloadFilesInWorkPath({
     }
     return workPath;
 }
-export const build = async ({
+const build = async ({
     workPath = "",
     files: originalFiles = [],
     entrypoint,
@@ -77,5 +81,10 @@ export const build = async ({
         output: lambda,
     };
 };
-export { shouldServe };
-export { installRequirement, poetryInstall };
+module.exports = {
+    shouldServe,
+    build,
+    version,
+    downloadFilesInWorkPath,
+    poetryInstall,
+};
