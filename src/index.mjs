@@ -1,11 +1,5 @@
 import { join, dirname, basename } from "path";
-import {
-    download,
-    glob,
-    Lambda,
-    shouldServe,
-    debug,
-} from "@vercel/build-utils";
+import vpkg from "@vercel/build-utils";
 import { installRequirement, poetryInstall } from "./install.mjs";
 
 const PYTHON_CONFIG = {
@@ -14,6 +8,8 @@ const PYTHON_CONFIG = {
     pythonPath: "python3",
     runtime: "python3",
 };
+
+const { download, glob, shouldServe, debug, Lambda } = vpkg;
 
 // vercel manifest version
 export const version = 3;
